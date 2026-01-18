@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Info Form</title>
+</head>
+<body>
+    <h2>Narayan Raj :: TEST  FLASK  APP : version 1.0 meta</h2> 
+    <br><h4>User Information Form</h4><br>
+    {% if submitted %}
+        <p><strong>Submitted Data:</strong></p>
+        <ul>
+            <li>Name: {{ data.name }}</li>
+            <li>Address: {{ data.address }}</li>
+            <li>State: {{ data.state }}</li>
+            <li>Phone: {{ data.phone }}</li>
+            <li>Company Role: {{ data.company_role }}</li>
+        </ul>
+        <a href="/">Submit another</a>
+    {% else %}
+    <form method="post">
+        <label>Name: <input type="text" name="name" required></label><br><br>
+        <label>Address: <input type="text" name="address" required></label><br><br>
+        <label>State:
+            <select name="state" required>
+                {% for state in states %}
+                <option value="{{ state }}">{{ state }}</option>
+                {% endfor %}
+            </select>
+        </label><br><br>
+        <label>Phone: <input type="text" name="phone" required></label><br><br>
+        <label>Company Role: <input type="text" name="company_role" required></label><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    {% endif %}
+    <br>
+    <a href="/search">Search User Data</a>
+</body>
+</html>
+
+

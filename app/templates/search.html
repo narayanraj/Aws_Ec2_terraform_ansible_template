@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Users</title>
+</head>
+<body>
+    <h2>Narayan Raj :: TEST  FLASK  APP : version 1.0 beta</h2> 
+    <br> <h4>Search User Data</h4><br>
+    <form method="post">
+        <label>Name: <input type="text" name="name"></label>
+        <label>Company Role: <input type="text" name="company_role"></label>
+        <button type="submit">Search</button>
+    </form>
+    {% if results is not none %}
+        <h3>Results:</h3>
+        {% if results %}
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>State</th>
+                <th>Phone</th>
+                <th>Company Role</th>
+            </tr>
+            {% for user in results %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.state }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.company_role }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    {% endif %}
+    <br>
+    <a href="/">Back to Form</a>
+</body>
+</html>
+

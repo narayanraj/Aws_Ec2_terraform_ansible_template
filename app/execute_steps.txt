@@ -1,0 +1,44 @@
+Here are the next steps to run your Flask app with a Postgres database using Docker Compose:
+
+Open a terminal and navigate to your app directory:
+cd d:\6_GITHUB\Pulumi\pulumi-start-aws\app
+
+===>>>  WSL   (to start wsl ubuntu instance)
+
+Build and start both containers (Flask app and Postgres) with Docker Compose:
+docker-compose up --build           # build and up both
+
+##==========================================================================
+# IMPORTANT: To update the app without losing database data:
+# 1. Stop the containers (this does NOT remove volumes or data):
+docker-compose down
+# 2. Update your app code as needed.
+# 3. Rebuild the web image (no need to remove volumes):
+docker-compose build web
+# 4. Start the containers again:
+docker-compose up
+#
+# DO NOT use '--volumes' or '--rmi all' if you want to keep your database data.
+# The 'pgdata' volume preserves your Postgres data between runs.
+##==========================================================================
+
+docker-compose down   
+         ##flags  --rmi all --volumes --remove-orphans  #  Remove everything & DATA LOST
+docker-compose build --no-cache     # recreate from scratch as no-cache
+docker-compose up
+
+docker ps    -a
+docker images
+docker-compose logs web
+docker logs app_web_1
+
+Wait for both containers to start. The Flask app will automatically create the database table on first request.
+Connect to the Postgres container & check data in PG ::
+   docker exec -it app_db_1 psql -U postgres -d userdb
+   SELECT * FROM "user";
+
+Open your browser and go to:
+http://localhost:8080
+You should see the web form. Fill it out and submit. Each submission is saved in the Postgres database.
+
+

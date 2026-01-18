@@ -1,0 +1,21 @@
+version: "3"
+services:
+  flask_blue:
+    image: NarayanRaj/flask-app:blue
+    ports:
+      - "5001:5000"
+
+  flask_green:
+    image: NarayanRaj/flask-app:green
+    ports:
+      - "5002:5000"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - flask_blue
+      - flask_green
